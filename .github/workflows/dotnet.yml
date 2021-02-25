@@ -17,9 +17,15 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+    - uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
+    - name: Add private GitHub registry to NuGet
+      run: |
+        rm -f ./nuget.config
+        nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/es-wolters-kluwer/index.json -Username es-wolters-kluwer -Password ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build
       run: dotnet build --configuration Release --no-restore --framework netcoreapp3.1
