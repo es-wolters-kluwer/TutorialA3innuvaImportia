@@ -17,10 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - uses: nuget/setup-nuget@v1
-      with:
-        nuget-api-key: ${{ secrets.NuGetAPIKey }}
-        nuget-version: '5.x'
+    - name: GitHub Package Registry Tool Install
+      run: dotnet tool install --global --verbosity minimal --no-cache gpr
     - name: Restore dependencies 
       run: dotnet restore
     - name: Build
