@@ -25,7 +25,7 @@ jobs:
       run: |
         rm -f ./nuget.config
         nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/es-wolters-kluwer/index.json -Username es-wolters-kluwer -Password ${{secrets.GITHUB_TOKEN}}
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore dependencies 
+      run: dotnet restore -s "GPR"
     - name: Build
       run: dotnet build --configuration Release --no-restore --framework netcoreapp3.1
