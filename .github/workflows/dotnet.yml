@@ -24,7 +24,7 @@ jobs:
     - name: Add private GitHub registry to NuGet
       run: |
         rm -f ./nuget.config
-        nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/es-wolters-kluwer/index.json -Username es-wolters-kluwer -Password ${{secrets.GITHUB_TOKEN}}
+        nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/es-wolters-kluwer/index.json -Username s-wolters-kluwer -Password ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies 
       run: dotnet restore -s https://nuget.pkg.github.com/es-wolters-kluwer/index.json
     - name: Build
