@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies 
       run: dotnet restore
       env: 
-        READ_PACKAGES_TOKEN : ${{ secrets.NUGET_TOKEN }}
+        READ_PACKAGES_TOKEN: ${{ secrets.NUGET_TOKEN }}
     - name: Build
       run: dotnet build --configuration Release --no-restore --framework netcoreapp3.1
