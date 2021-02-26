@@ -18,6 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.x
    
+    - name: Adjust NuGet Config Credentials
+      run: echo $(sed -e "s/\${USER}/es-wolters-kluwer/" -e "s@\${PAT}@${{ secrets.NUGET_TOKEN  }}@" nuget.config) >nuget.config
     - name: Restore dependencies 
       run: dotnet restore
     - name: Build
