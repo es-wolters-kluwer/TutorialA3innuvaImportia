@@ -16,12 +16,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.x
-        source-url: ${{ env.NUGET_URL }}
-      env:
-        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Adjust NuGet Config Credentials
-      run: echo $(sed -e "s/\${USER}/es-wolters-kluwer/" -e "s/\${PAT}/${{secrets.NUGET_TOKEN}}/" nuget.config) >nuget.config
+        dotnet-version: 3.1.x   
     - name: Restore dependencies 
       run: dotnet restore
     - name: Build
