@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -17,6 +17,16 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+    - uses: nuget/setup-nuget@v1
+      with:
+        nuget-api-key: ${{ secrets.NuGetAPIKey }}
+        nuget-version: '5.x'
+    - name: Cleanup
+      if: always()
+      continue-on-error: true
+      run: dotnet nuget remove source github
+    - name: Add private GitHub registry to NuGet
+      run: nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/es-wolters-kluwer/index.json -Username es-wolters-kluwer -Password ${{secrets.NUGET_TOKEN}}
     - name: Restore dependencies 
       run: dotnet restore
     - name: Build
